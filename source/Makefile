@@ -5,7 +5,8 @@ DEP	:= $(subst .c,.d,$(SOURCE))
 BINARY	:= shell-fm
 LIB	:= libshellfm.so
 STATIC	:= libshellfm.a
-CFLAGS  += -Os -Wall -MD -W -I./include/
+CFLAGS  += -march=i486 -mtune=i686 -Os -pipe -Wall -MD -W -I./include/
+CXXFLAGS += -march=i486 -mtune=i686 -Os -pipe -fno-exceptions -fno-rtti
 
 ifdef EXTERN_ONLY
 	CFLAGS += -DEXTERN_ONLY

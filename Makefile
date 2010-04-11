@@ -1,6 +1,6 @@
 
 DESTDIR =
-PREFIX	:= /usr
+PREFIX	:= /usr/local
 MANDIR	:= $(PREFIX)/man
 DOCDIR  := ${PREFIX}/share/doc
 
