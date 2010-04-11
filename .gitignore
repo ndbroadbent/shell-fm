@@ -4,3 +4,4 @@
 manual/shell-fm.1.gz
 source/shell-fm
 tags
+*.tcz*
