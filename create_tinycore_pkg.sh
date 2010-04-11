@@ -19,4 +19,6 @@ find usr -not -type d > $PKG_NAME.tcz.list
 
 rm -rf usr
 
+chmod 664 /tmp/$PKG_NAME/$PKG_NAME.tcz /tmp/$PKG_NAME/$PKG_NAME.tcz.list
+
 mv /tmp/$PKG_NAME/$PKG_NAME.tcz /tmp/$PKG_NAME/$PKG_NAME.tcz.list $CDIR/..
