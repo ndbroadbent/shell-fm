@@ -19,4 +19,4 @@ find usr -not -type d > $PKG_NAME.tcz.list
 
 rm -rf usr
 
-mv /tmp/$PKG_NAME.tcz /tmp/$PKG_NAME.tcz.list $CDIR
+mv /tmp/$PKG_NAME/$PKG_NAME.tcz /tmp/$PKG_NAME/$PKG_NAME.tcz.list $CDIR
