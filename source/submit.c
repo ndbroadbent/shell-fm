@@ -101,7 +101,9 @@ int submit(const char * user, const char * password) {
 	signal(SIGTERM, SIG_IGN);
 
 	if(!handshaked && !handshake(user, password)) {
-		fputs("Handshake failed.\n", stderr);
+		/** Don't display the 'Handshake failed' msg. Tinycore seems
+		to have a problem with this, but it works fine anyway! **/
+		//fputs("Handshake failed.\n", stderr);
 		exit(retval);
 	}
 
