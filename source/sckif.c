@@ -201,7 +201,8 @@ void execcmd(const char * cmd, char * reply) {
 		"track-tags",
 		"stop",
 		"volume-up",
-		"volume-down"
+		"volume-down",
+		"volume"
 	};
 
 	memset(arg, 0, sizeof(arg));
@@ -318,11 +319,44 @@ void execcmd(const char * cmd, char * reply) {
 			// Volume +
 			if(volume < MAX_VOLUME)
 				volume += 1;
+            if(playpipe != 0)
+				write(playpipe, "+", 1);
 			break;
 		case 16:
 			// Volume -
 			if(volume > 0)
 				volume -= 1;
+            if(playpipe != 0)
+				write(playpipe, "-", 1);
+			break;
+
+        case 17:
+			if(sscanf(cmd, "volume %128s", arg) == 1) {
+				float vol_f;
+                int pipe_vol = volume;
+				int vol_i;
+
+				vol_f = atof(arg);
+				vol_f = vol_f / 100 * MAX_VOLUME;
+                vol_i = (int)vol_f;
+			    if(vol_i <= MAX_VOLUME && vol_i >= 0)
+				    volume = vol_i;
+
+                // incrementally updates the volume variable in the play.c process via a pipe.
+                if(playpipe != 0) {
+                    while ( pipe_vol != volume ) {
+                        if(pipe_vol < volume) {
+                            write(playpipe, "+", 1);
+                            pipe_vol++;
+                        }
+                        if(pipe_vol > volume) {
+                            write(playpipe, "-", 1);
+                            pipe_vol--;
+                        }
+                    }
+                }
+
+			}
 			break;
 	}
 }
@@ -339,3 +373,4 @@ static int waitread(int fd, unsigned sec, unsigned usec) {
 
 	return (select(fd + 1, & readfd, NULL, NULL, & tv) > 0);
 }
+
